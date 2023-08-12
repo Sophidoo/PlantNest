@@ -1,5 +1,6 @@
 package com.cybertitans.CyberTitans.dto;
 
+import com.cybertitans.CyberTitans.model.Product;
 import com.cybertitans.CyberTitans.model.User;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -23,6 +24,8 @@ public class AuditTrialDTO {
     private User user;
 
     private String audit;
+
+    private Product product;
 
     private LocalDate date;
 }

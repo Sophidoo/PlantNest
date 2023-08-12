@@ -36,10 +36,11 @@ public class AdminServiceImpl implements AdminService {
     private final AuditTrialService auditTrialService;
     private final MailingServiceImpl mailingService;
     private final CartRepository cartRepository;
+    private final AuditTrialRepository auditTrialRepository;
 
     private final OtpServiceImpl otpService;
 
-    public AdminServiceImpl(CategoryRepository categoryRepository, ProductRepository productRepository, ProductImageRepository productImageRepository, ModelMapper mapper, OrderRepository orderRepository, UserRepository userRepository, AuditTrialService auditTrialService, MailingServiceImpl mailingService, CartRepository cartRepository, OtpServiceImpl otpService) {
+    public AdminServiceImpl(CategoryRepository categoryRepository, ProductRepository productRepository, ProductImageRepository productImageRepository, ModelMapper mapper, OrderRepository orderRepository, UserRepository userRepository, AuditTrialService auditTrialService, MailingServiceImpl mailingService, CartRepository cartRepository, AuditTrialRepository auditTrialRepository, OtpServiceImpl otpService) {
         this.categoryRepository = categoryRepository;
         this.productRepository = productRepository;
         this.productImageRepository = productImageRepository;
@@ -49,6 +50,7 @@ public class AdminServiceImpl implements AdminService {
         this.auditTrialService = auditTrialService;
         this.mailingService = mailingService;
         this.cartRepository = cartRepository;
+        this.auditTrialRepository = auditTrialRepository;
         this.otpService = otpService;
     }
 
@@ -81,6 +83,7 @@ public class AdminServiceImpl implements AdminService {
         auditTrial.setAudit("Product with id " + save.getProductId() + " was added successfully");
         auditTrial.setDate(LocalDate.now());
         auditTrialService.addToAuditTrial(auditTrial);
+        auditTrialRepository.save(mapper.map(auditTrial, AuditTrial.class));
         return "Post created successfully with product id " + save.getProductId();
     }
 
@@ -89,7 +92,12 @@ public class AdminServiceImpl implements AdminService {
         ProductImage productImage = new ProductImage();
         productImage.setImageURL(imgUrl);
         Optional<Product> createdProduct = productRepository.findById(id);
-
+        AuditTrialDTO auditTrial = new AuditTrialDTO();
+        auditTrial.setUser(getLoggedInUser());;
+        auditTrial.setAudit("Product image for product with id " + id + " was saved successfully");
+        auditTrial.setDate(LocalDate.now());
+        auditTrialService.addToAuditTrial(auditTrial);
+        auditTrialRepository.save(mapper.map(auditTrial, AuditTrial.class));
         return getProductImage(id, productImage, createdProduct);
     }
 
@@ -112,7 +120,7 @@ public class AdminServiceImpl implements AdminService {
         auditTrial.setAudit("Product with id " + save.getProductId() + " was updated successfully");
         auditTrial.setDate(LocalDate.now());
         auditTrialService.addToAuditTrial(auditTrial);
-
+        auditTrialRepository.save(mapper.map(auditTrial, AuditTrial.class));
         return "Product updated successfully with id " + save.getProductId();
 
     }
@@ -122,6 +130,12 @@ public class AdminServiceImpl implements AdminService {
         Optional<ProductImage> productImage =productImageRepository.findById(id);
         Optional<Product> productToBeUpdated = productRepository.findById(id);
         productImage.get().setImageURL(ImgUrl);
+        AuditTrialDTO auditTrial = new AuditTrialDTO();
+        auditTrial.setUser(getLoggedInUser());
+        auditTrial.setAudit("Product image for product with id " + id + " was updated successfully");
+        auditTrial.setDate(LocalDate.now());
+        auditTrialService.addToAuditTrial(auditTrial);
+        auditTrialRepository.save(mapper.map(auditTrial, AuditTrial.class));
         return getProductImage(id, productImage.get(), productToBeUpdated);
     }
 
@@ -138,6 +152,7 @@ public class AdminServiceImpl implements AdminService {
         auditTrial.setAudit("Product with id " + Id + " was deleted");
         auditTrial.setDate(LocalDate.now());
         auditTrialService.addToAuditTrial(auditTrial);
+        auditTrialRepository.save(mapper.map(auditTrial, AuditTrial.class));
         return "Product deleted successfully";
     }
 
