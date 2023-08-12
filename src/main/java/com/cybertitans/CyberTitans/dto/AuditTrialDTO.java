@@ -25,7 +25,5 @@ public class AuditTrialDTO {
 
     private String audit;
 
-    private Product product;
-
     private LocalDate date;
 }
