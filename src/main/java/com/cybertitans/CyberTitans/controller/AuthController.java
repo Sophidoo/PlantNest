@@ -17,7 +17,7 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.*;
 
 
-@CrossOrigin("**")
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/api/v1/auth")
 @Tag(

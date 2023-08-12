@@ -1,6 +1,7 @@
 package com.cybertitans.CyberTitans.service.serviceImpl;
 
 import com.cybertitans.CyberTitans.dto.*;
+import com.cybertitans.CyberTitans.enums.ProductType;
 import com.cybertitans.CyberTitans.enums.ReviewType;
 import com.cybertitans.CyberTitans.exception.ResourceNotFoundException;
 import com.cybertitans.CyberTitans.model.Product;
@@ -20,6 +21,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -67,40 +69,28 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public ReviewResponseDTO getAllReviews(int pageNo, int pageSize, String sortBy, String sortDir) {
-        Sort sort= sortDir.equalsIgnoreCase(Sort.Direction.ASC.name())? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
-        Pageable pageable = PageRequest.of(pageNo, pageSize, sort);
-
-        Page<Reviews> reviews = reviewRepository.findAll(pageable);
-        return getReviewResponse(reviews);
+    public List<Reviews> getAllReviews() {
+        List<Reviews> all = reviewRepository.findAll();
+        return all ;
     }
 
     @Override
-    public ReviewResponseDTO getAllProductReviews(int pageNo, int pageSize, String sortBy, String sortDir) {
-        Sort sort= sortDir.equalsIgnoreCase(Sort.Direction.ASC.name())? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
-        Pageable pageable = PageRequest.of(pageNo, pageSize, sort);
-
-        Page<Reviews> filteredProducts = reviewRepository.findAllByReviewType(pageable, ReviewType.PRODUCT_REVIEW);
-        return getReviewResponse(filteredProducts);
+    public List<Reviews> getAllProductReviews() {
+        List<Reviews> reviews = reviewRepository.findAllByReviewType(ReviewType.PRODUCT_REVIEW);
+        return reviews;
     }
 
     @Override
-    public ReviewResponseDTO getAllReviewForAParticularProduct(int pageNo, int pageSize, String sortBy, String sortDir, Long productId) {
-        Sort sort= sortDir.equalsIgnoreCase(Sort.Direction.ASC.name())? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
-        Pageable pageable = PageRequest.of(pageNo, pageSize, sort);
-
+    public List<Reviews> getAllReviewForAParticularProduct(Long productId) {
         Product product = productRepository.findById(productId).orElseThrow(() -> new ResourceNotFoundException("Product", "id", productId));
-        Page<Reviews> filteredProducts = reviewRepository.findAllByProduct(pageable, product);
-        return getReviewResponse(filteredProducts);
+        List<Reviews> filteredProducts = reviewRepository.findAllByProduct(product);
+        return filteredProducts;
     }
 
     @Override
-    public ReviewResponseDTO getAllApplicationReviews(int pageNo, int pageSize, String sortBy, String sortDir) {
-        Sort sort= sortDir.equalsIgnoreCase(Sort.Direction.ASC.name())? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
-        Pageable pageable = PageRequest.of(pageNo, pageSize, sort);
-
-        Page<Reviews> filteredProducts = reviewRepository.findAllByReviewType(pageable, ReviewType.APPLICATION_REVIEW);
-        return getReviewResponse(filteredProducts);
+    public List<Reviews> getAllApplicationReviews() {
+        List<Reviews> filteredProducts = reviewRepository.findAllByReviewType(ReviewType.APPLICATION_REVIEW);
+        return filteredProducts;
     }
 
     private ReviewResponseDTO getReviewResponse(Page<Reviews> reviews){

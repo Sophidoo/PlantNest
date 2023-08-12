@@ -1,6 +1,7 @@
 package com.cybertitans.CyberTitans.model;
 
 import com.cybertitans.CyberTitans.enums.ProductType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -51,7 +52,8 @@ public class Product {
     @ManyToOne(fetch = FetchType.LAZY)
     private Category category;
 
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+//    @JsonIgnore
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<Reviews> reviews;
 
 }

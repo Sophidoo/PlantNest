@@ -1,6 +1,7 @@
 package com.cybertitans.CyberTitans.model;
 
 import com.cybertitans.CyberTitans.enums.ReviewType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -26,11 +27,13 @@ public class Reviews {
 
     private double rating;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
     private LocalDate date = LocalDate.now();
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "productId")
     private Product product;

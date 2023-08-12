@@ -60,7 +60,7 @@ public class User {
 
     private String phoneNumber;
 
-    @JsonIgnore
+//    @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Reviews> reviews;
 

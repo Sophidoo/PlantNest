@@ -9,7 +9,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
 
 
-@CrossOrigin("**")
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/api/v1/super-admin")
 public class SuperAdminController {

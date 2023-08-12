@@ -12,6 +12,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface ReviewRepository extends JpaRepository<Reviews, Long> {
-    Page<Reviews> findAllByReviewType (Pageable pageable, ReviewType reviewType);
-    Page<Reviews> findAllByProduct(Pageable pageable, Product product);
+    List<Reviews> findAllByReviewType (ReviewType reviewType);
+    List<Reviews> findAllByProduct(Product product);
 }

@@ -2,6 +2,7 @@ package com.cybertitans.CyberTitans.controller;
 
 import com.cybertitans.CyberTitans.dto.ApplicationReviewDTO;
 import com.cybertitans.CyberTitans.dto.ProductReviewDTO;
+import com.cybertitans.CyberTitans.dto.ReviewDTO;
 import com.cybertitans.CyberTitans.dto.ReviewResponseDTO;
 import com.cybertitans.CyberTitans.model.Reviews;
 import com.cybertitans.CyberTitans.service.ReviewService;
@@ -16,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 
-@CrossOrigin("**")
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/api/v1/reviews")
 @Tag(
@@ -55,14 +56,15 @@ public class ReviewController {
     )
     @PreAuthorize("hasAnyAuthority('ADMIN', 'SUPER_ADMIN')")
     @GetMapping("/all-reviews")
-    public ResponseEntity<ReviewResponseDTO> getAllReviews(
+    public ResponseEntity<List<Reviews>> getAllReviews(
             @RequestParam(value = "pageNo", defaultValue = AppConstant.DEFAULT_PAGE_NUMBER, required = false) int pageNo,
             @RequestParam(value = "pageSize", defaultValue = AppConstant.DEFAULT_PAGE_SIZE, required = false) int pageSize,
             @RequestParam(value = "sortBy", defaultValue = AppConstant.DEFAULT_SORT_BY, required = false) String sortBy,
             @RequestParam(value = "sortDir", defaultValue = AppConstant.DEFAULT_SORT_DIRECTION, required = false) String sortDir
     ){
-        ReviewResponseDTO allReviews = reviewService.getAllReviews(pageNo, pageSize, sortBy, sortDir);
-        return new ResponseEntity<>(allReviews, HttpStatus.OK);
+        List<Reviews> allReviews = reviewService.getAllReviews();
+        System.out.println(allReviews);
+        return new  ResponseEntity<>(allReviews, HttpStatus.OK);
     }
 
     @SecurityRequirement(
@@ -70,13 +72,13 @@ public class ReviewController {
     )
     @PreAuthorize("hasAnyAuthority('ADMIN', 'SUPER_ADMIN', 'USER')")
     @GetMapping("/product-reviews")
-    public ResponseEntity<ReviewResponseDTO> getAllProductReviews(
+    public ResponseEntity<List<Reviews>> getAllProductReviews(
             @RequestParam(value = "pageNo", defaultValue = AppConstant.DEFAULT_PAGE_NUMBER, required = false) int pageNo,
             @RequestParam(value = "pageSize", defaultValue = AppConstant.DEFAULT_PAGE_SIZE, required = false) int pageSize,
             @RequestParam(value = "sortBy", defaultValue = AppConstant.DEFAULT_SORT_BY, required = false) String sortBy,
             @RequestParam(value = "sortDir", defaultValue = AppConstant.DEFAULT_SORT_DIRECTION, required = false) String sortDir
     ){
-        ReviewResponseDTO allReviews = reviewService.getAllProductReviews(pageNo, pageSize, sortBy, sortDir);
+        List<Reviews> allReviews = reviewService.getAllProductReviews();
         return new ResponseEntity<>(allReviews, HttpStatus.OK);
     }
 
@@ -85,13 +87,13 @@ public class ReviewController {
     )
     @PreAuthorize("hasAnyAuthority('ADMIN', 'SUPER_ADMIN')")
     @GetMapping("/application-reviews")
-    public ResponseEntity<ReviewResponseDTO> getAllApplicationReviews(
+    public ResponseEntity<List<Reviews>> getAllApplicationReviews(
             @RequestParam(value = "pageNo", defaultValue = AppConstant.DEFAULT_PAGE_NUMBER, required = false) int pageNo,
             @RequestParam(value = "pageSize", defaultValue = AppConstant.DEFAULT_PAGE_SIZE, required = false) int pageSize,
             @RequestParam(value = "sortBy", defaultValue = AppConstant.DEFAULT_SORT_BY, required = false) String sortBy,
             @RequestParam(value = "sortDir", defaultValue = AppConstant.DEFAULT_SORT_DIRECTION, required = false) String sortDir
     ){
-        ReviewResponseDTO allReviews = reviewService.getAllApplicationReviews(pageNo, pageSize, sortBy, sortDir);
+        List<Reviews> allReviews = reviewService.getAllApplicationReviews();
         return new ResponseEntity<>(allReviews, HttpStatus.OK);
     }
 
@@ -99,14 +101,14 @@ public class ReviewController {
             name = "Bearer Authentication"
     )
     @GetMapping("/single-product-review/{productId}")
-    public ResponseEntity<ReviewResponseDTO> getAParticularProductReviews(
+    public ResponseEntity<List<Reviews>> getAParticularProductReviews(
             @RequestParam(value = "pageNo", defaultValue = AppConstant.DEFAULT_PAGE_NUMBER, required = false) int pageNo,
             @RequestParam(value = "pageSize", defaultValue = AppConstant.DEFAULT_PAGE_SIZE, required = false) int pageSize,
             @RequestParam(value = "sortBy", defaultValue = AppConstant.DEFAULT_SORT_BY, required = false) String sortBy,
             @RequestParam(value = "sortDir", defaultValue = AppConstant.DEFAULT_SORT_DIRECTION, required = false) String sortDir,
             @PathVariable Long productId
     ){
-        ReviewResponseDTO allReviews = reviewService.getAllReviewForAParticularProduct(pageNo, pageSize, sortBy, sortDir, productId);
+        List<Reviews> allReviews = reviewService.getAllReviewForAParticularProduct(productId);
         return new ResponseEntity<>(allReviews, HttpStatus.OK);
     }
 }

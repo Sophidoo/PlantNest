@@ -7,7 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin("**")
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/audit")
 public class AuditTrialController {
@@ -27,7 +27,6 @@ public class AuditTrialController {
     ){
         AuditTrialResponseDTO allAuditTrials = auditTrialService.getAllAuditTrials(pageNo, pageSize, sortBy, sortDir);
         return new ResponseEntity<>(allAuditTrials, HttpStatus.OK);
-
     }
 
 }

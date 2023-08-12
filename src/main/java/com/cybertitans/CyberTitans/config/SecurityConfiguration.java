@@ -1,6 +1,5 @@
 package com.cybertitans.CyberTitans.config;
 
-import com.cybertitans.CyberTitans.security.AuthCorsFilter;
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
 import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import org.springframework.context.annotation.Bean;
@@ -34,13 +33,11 @@ public class SecurityConfiguration {
     private JwtAuthenticationFilter jwtAuthenticationFilter;
     private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
 
-    private AuthCorsFilter authCorsFilter;
 
-    public SecurityConfiguration(JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint, JwtAuthenticationFilter jwtAuthenticationFilter, UserDetailsService userDetailsService, AuthCorsFilter authCorsFilter) {
+    public SecurityConfiguration(JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint, JwtAuthenticationFilter jwtAuthenticationFilter, UserDetailsService userDetailsService) {
         this.jwtAuthenticationEntryPoint = jwtAuthenticationEntryPoint;
         this.jwtAuthenticationFilter = jwtAuthenticationFilter;
         this.userDetailsService = userDetailsService;
-        this.authCorsFilter = authCorsFilter;
     }
 
     @Bean
@@ -55,7 +52,6 @@ public class SecurityConfiguration {
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
-        http.addFilterBefore(authCorsFilter, UsernamePasswordAuthenticationFilter.class);
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
         return http
                 .csrf(AbstractHttpConfigurer::disable).cors(AbstractHttpConfigurer::disable)
