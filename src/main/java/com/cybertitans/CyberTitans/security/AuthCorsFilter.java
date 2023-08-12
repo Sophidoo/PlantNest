@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.util.Collections;
 
 
-@Component
+//@Component
 public class AuthCorsFilter extends OncePerRequestFilter {
     private final CorsConfigurationSource configSource;
 

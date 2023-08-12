@@ -91,7 +91,6 @@ public class UserController {
     @SecurityRequirement(
             name = "Bearer Authentication"
     )
-    @PreAuthorize("hasAuthority('USER')")
     @GetMapping("/get-addresses")
     public ResponseEntity<UserAddressResponseDTO> getAllAddresses(
             @RequestParam(value = "pageNo", defaultValue = AppConstant.DEFAULT_PAGE_NUMBER, required = false) int pageNo,
@@ -106,7 +105,7 @@ public class UserController {
             name = "Bearer Authentication"
     )
 
-    @PreAuthorize("hasAuthority('USER')")
+    @PreAuthorize("hasAnyAuthority('USER', 'ADMIN', SUPER_ADMIN')")
     @PatchMapping("/update-address/{id}")
     public ResponseEntity<ShippingAddressDTO> updateAddess(@PathVariable Long id, @RequestBody ShippingAddressDTO shippingAddressDTO){
         ShippingAddressDTO shippingAddressDTO1 = shippingAddress.updateAddress(id, shippingAddressDTO);
@@ -117,7 +116,7 @@ public class UserController {
             name = "Bearer Authentication"
     )
 
-    @PreAuthorize("hasAuthority('USER')")
+    @PreAuthorize("hasAnyAuthority('USER', 'ADMIN', SUPER_ADMIN')")
     @DeleteMapping("/delete-address/{id}")
     public ResponseEntity<String> deleteAddress(@PathVariable Long id){
         String shippingAddressDTO1 = shippingAddress.deleteAddress(id);
@@ -127,6 +126,7 @@ public class UserController {
     @SecurityRequirement(
             name = "Bearer Authentication"
     )
+    @PreAuthorize("hasAnyAuthority('USER', 'ADMIN', SUPER_ADMIN')")
     @GetMapping("/get-default-address")
     public ResponseEntity<ShippingAddressDTO> getDefaultAddress(){
         ShippingAddressDTO shippingAddressDTO1 = shippingAddress.getUserDefaultAddress();
@@ -137,7 +137,7 @@ public class UserController {
             name = "Bearer Authentication"
     )
 
-    @PreAuthorize("hasAuthority('USER')")
+    @PreAuthorize("hasAnyAuthority('USER', 'ADMIN', SUPER_ADMIN')")
     @PatchMapping("/cancel-order/{orderId}")
     public ResponseEntity<OrderResponseDTO> cancelOrder(@PathVariable Long orderId){
         OrderResponseDTO orderResponseDTO = orderService.cancelOrder(orderId);

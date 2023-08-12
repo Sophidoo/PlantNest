@@ -27,6 +27,7 @@ public class CartController {
     @SecurityRequirement(
             name = "Bearer Authentication"
     )
+    @CrossOrigin("*")
     @PostMapping("/add-to-cart/{productId}")
     public ResponseEntity<CartItemDTO> addToCart(@PathVariable("productId") long productId){
         CartItemDTO cartItemDTO = cartService.addToCart(productId);

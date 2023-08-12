@@ -68,6 +68,7 @@ public class SecurityConfiguration {
                         .requestMatchers("/api/v1/user/getAllProducts").permitAll()
                         .requestMatchers("/api/v1/user/getAllProducts/**").permitAll()
                         .requestMatchers("/api/v1/user/getSingleProduct/**").permitAll()
+                        .requestMatchers("/api/v1/user/**").permitAll()
                         .requestMatchers("/api/v1/cart/**").hasAuthority("USER")
                         .requestMatchers("/checkout/**").hasAuthority("USER")
                         .requestMatchers("/api/v1/admin/**").hasAnyAuthority("ADMIN", "SUPER_ADMIN")
