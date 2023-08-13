@@ -127,6 +127,7 @@ public class AdminController {
     @GetMapping("/products-sold-count/{productType}")
     public ResponseEntity<Integer> getSoldProductsCountByType(@PathVariable ProductType productType) {
         int soldProductsCountByType = productService.getSoldProductsCountByType(productType);
+
         return new ResponseEntity<>(soldProductsCountByType, HttpStatus.OK);
     }
 

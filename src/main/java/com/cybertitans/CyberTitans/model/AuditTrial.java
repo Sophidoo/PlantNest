@@ -22,9 +22,11 @@ public class AuditTrial {
     private Long id;
 
     @JsonIgnore
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne( fetch = FetchType.LAZY)
     @JoinColumn(unique = false)
     private User user;
+
+    private Long productId;
 
     private String audit;
 
