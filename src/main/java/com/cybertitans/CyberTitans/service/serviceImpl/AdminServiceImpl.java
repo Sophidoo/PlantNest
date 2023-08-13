@@ -84,6 +84,8 @@ public class AdminServiceImpl implements AdminService {
         auditTrial.setDate(LocalDate.now());
         auditTrialService.addToAuditTrial(auditTrial);
         auditTrialRepository.save(mapper.map(auditTrial, AuditTrial.class));
+
+
         return "Post created successfully with product id " + save.getProductId();
     }
 
