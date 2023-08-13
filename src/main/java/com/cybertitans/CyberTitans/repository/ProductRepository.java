@@ -13,7 +13,7 @@ import java.util.Optional;
 
 public interface ProductRepository extends JpaRepository<Product, Long> {
 
-    @Query("SELECT p FROM Product p WHERE p.quantity > 0 AND LOWER(CONCAT(p.productId, p.productName, p.productType, p.quantity, p.image, p.description, p.growthHabit, p.lightLevel, p.waterRequirement, p.productPrice,p.category.categoryName)) LIKE %?1%")
+    @Query("SELECT p FROM Product p WHERE p.quantity > 0 AND LOWER(CONCAT(p.productId, p.productName, p.productType, p.quantity, p.image, p.description, p.growthHabit, p.lightLevel, p.waterRequirement, p.productPrice,p.category)) LIKE %?1%")
     Page<Product> findAllByFilterParam (Pageable pageable, String filterParam);
 
     @Query("SELECT p FROM Product p WHERE p.quantity > 0 AND LOWER(p.growthHabit) LIKE %?1%")
@@ -25,7 +25,6 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     int getTotalQuantitySold(ProductType productType);
     @Query("SELECT p FROM Product p WHERE p.quantity > 0 AND LOWER(p.lightLevel) LIKE %?1%")
     Page<Product> findAllByLightLevelContains (Pageable pageable, String lightLevel);
-
     @Query("SELECT p FROM Product p WHERE p.quantity > 0 AND LOWER(p.waterRequirement) LIKE %?1%")
     Page<Product> findAllByWaterRequirementsContains (Pageable pageable, String waterRequirement);
 
@@ -35,8 +34,8 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     @Query("SELECT p FROM Product  p WHERE p.quantity > 0 AND  :filterParam BETWEEN :startRange AND :endRange")
     Page<Product> findAllByPriceBetween (Pageable pageable, double filterParam, double startRange,double endRange);
 
-    @Query("SELECT p FROM Product p WHERE p.quantity > 0 AND LOWER(p.category.categoryName) =:categoryName")
-    Page<Product> findAllByCategory_CategoryName(Pageable pageable, @Param("categoryName") String categoryName);
+    @Query("SELECT p FROM Product p WHERE p.quantity > 0 AND LOWER(p.category) =:categoryName")
+    Page<Product> findAllByCategory(Pageable pageable, @Param("categoryName") String categoryName);
 
     @Query("SELECT SUM(p.quantity) FROM Product p WHERE p.quantity > 0 AND p.productType = :productType")
     Integer getAvailableProductCountByType(@Param("productType") ProductType productType);

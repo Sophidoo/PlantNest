@@ -55,8 +55,8 @@ public class ProductServiceImpl implements ProductService {
         Sort sort= sortDir.equalsIgnoreCase(Sort.Direction.ASC.name())? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
         Pageable pageable = PageRequest.of(pageNo, pageSize, sort);
 
-        if("".equals(filterBy) && !"".equals(filterParam)){
-                Page<Product> products = productRepository.findAllByFilterParam(pageable, filterParam.toLowerCase());
+        if("".equals(filterBy) || "".equals(filterParam)){
+                Page<Product> products = productRepository.findAll(pageable);
                 return getProductResponse(products);
         }else{
             switch (filterBy){
@@ -68,8 +68,8 @@ public class ProductServiceImpl implements ProductService {
                     Page<Product> filteredProducts = productRepository.findAllByPriceBetween(pageable, Double.parseDouble(filterParam), Double.parseDouble(startRange), Double.parseDouble(endRange));
                     return getProductResponse(filteredProducts);
                 }
-                case "categoryName": {
-                    Page<Product> filteredProducts = productRepository.findAllByCategory_CategoryName(pageable, filterParam.toLowerCase());
+                case "category": {
+                    Page<Product> filteredProducts = productRepository.findAllByCategory(pageable, filterParam.toLowerCase());
                     return getProductResponse(filteredProducts);
                 }
                 case "growthHabit": {

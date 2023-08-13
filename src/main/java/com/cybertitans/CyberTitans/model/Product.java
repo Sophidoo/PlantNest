@@ -50,8 +50,7 @@ public class Product {
 
     private double productPrice;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Category category;
+    private String category;
 
 //    @JsonIgnore
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)

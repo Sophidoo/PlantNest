@@ -6,11 +6,13 @@ import com.cybertitans.CyberTitans.dto.OrderResponseDTO;
 import com.cybertitans.CyberTitans.dto.OrderStatusDTO;
 import com.cybertitans.CyberTitans.dto.ProductDTO;
 import com.cybertitans.CyberTitans.enums.ProductType;
+import com.cybertitans.CyberTitans.model.Product;
 import com.cybertitans.CyberTitans.model.ProductImage;
 import com.cybertitans.CyberTitans.service.*;
 import com.cybertitans.CyberTitans.utls.AppConstant;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -40,8 +42,10 @@ public class AdminController {
             name = "Bearer Authentication"
     )
     @PostMapping("/create-product")
-    public ResponseEntity<String> createProduct(@RequestBody ProductDTO productDTO){
+    public ResponseEntity<String> createProduct( @RequestBody ProductDTO productDTO){
         String product = adminService.createProduct(productDTO);
+        System.out.println(productDTO + "controller 1");
+        System.out.println(product);
         return new ResponseEntity<>(product, HttpStatus.CREATED);
     }
 

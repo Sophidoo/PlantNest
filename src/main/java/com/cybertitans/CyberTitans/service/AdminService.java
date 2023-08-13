@@ -1,6 +1,7 @@
 package com.cybertitans.CyberTitans.service;
 
 import com.cybertitans.CyberTitans.dto.*;
+import com.cybertitans.CyberTitans.model.Product;
 import com.cybertitans.CyberTitans.model.ProductImage;
 import org.springframework.http.ResponseEntity;
 

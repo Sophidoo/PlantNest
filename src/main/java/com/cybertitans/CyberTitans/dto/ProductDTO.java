@@ -31,12 +31,9 @@ public class ProductDTO {
     private String description;
     @Enumerated(EnumType.STRING)
     private ProductType productType;
-
     @NotEmpty
     @NotNull
     private double productPrice;
 
-    @NotEmpty
-    @NotNull
-    private String categoryName;
+    private String category;
 }

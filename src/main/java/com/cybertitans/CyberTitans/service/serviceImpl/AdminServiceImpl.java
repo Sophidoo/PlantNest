@@ -57,16 +57,7 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public String createProduct(ProductDTO productDTO) {
         Product product = new Product();
-        Optional<Category> productCategory =categoryRepository.findByCategoryName(productDTO.getCategoryName().toLowerCase());
-        Category category = new Category();
-        if(productCategory.isEmpty()){
-            category.setCategoryName(productDTO.getCategoryName());
-            categoryRepository.save(category);
-            product.setCategory(category);
-        }else{
-            category = productCategory.get();
-            product.setCategory(category);
-        }
+        System.out.println(productDTO);
         product.setProductName(productDTO.getProductName());
         product.setProductPrice(productDTO.getProductPrice());
         product.setDescription(productDTO.getDescription());
@@ -76,8 +67,9 @@ public class AdminServiceImpl implements AdminService {
         product.setLightLevel(productDTO.getLightLevel());
         product.setWaterRequirement(productDTO.getWaterRequirement());
         product.setQuantity(productDTO.getQuantity());
+        product.setCategory(productDTO.getCategory());
         Product save = productRepository.save(product);
-
+        System.out.println(save + "save");
         AuditTrialDTO auditTrial = new AuditTrialDTO();
         auditTrial.setUser(getLoggedInUser());
         auditTrial.setAudit("Product with id " + save.getProductId() + " was added successfully");
@@ -86,7 +78,7 @@ public class AdminServiceImpl implements AdminService {
         auditTrialRepository.save(mapper.map(auditTrial, AuditTrial.class));
 
 
-        return "Post created successfully with product id " + save.getProductId();
+        return "Product created successfully with product id " + save.getProductId();
     }
 
     @Override

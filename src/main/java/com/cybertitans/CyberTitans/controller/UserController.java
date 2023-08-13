@@ -37,7 +37,7 @@ public class UserController {
     @GetMapping("/getAllProducts")
     public ResponseEntity<ProductResponseDTO> getAllProducts(
             @RequestParam(value = "pageNo", defaultValue = AppConstant.DEFAULT_PAGE_NUMBER, required = false) int pageNo,
-            @RequestParam(value = "pageSize", defaultValue = AppConstant.DEFAULT_PAGE_SIZE, required = false) int pageSize,
+            @RequestParam(value = "pageSize", defaultValue = "1000", required = false) int pageSize,
             @RequestParam(value = "sortBy", defaultValue = AppConstant.DEFAULT_SORT_BY, required = false) String sortBy,
             @RequestParam(value = "sortDir", defaultValue = AppConstant.DEFAULT_SORT_DIRECTION, required = false) String sortDir,
             @RequestParam(value = "filterBy", defaultValue = AppConstant.DEFAULT_FILTER_BY_PARAMETER, required = false) String filterBy,
