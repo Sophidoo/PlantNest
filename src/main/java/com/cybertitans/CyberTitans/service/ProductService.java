@@ -4,7 +4,6 @@ import com.cybertitans.CyberTitans.dto.OrderResponseDTO;
 import com.cybertitans.CyberTitans.dto.ProductDTO;
 import com.cybertitans.CyberTitans.dto.ProductResponseDTO;
 import com.cybertitans.CyberTitans.enums.ProductType;
-import com.cybertitans.CyberTitans.model.Orders;
 
 public interface ProductService {
     ProductDTO getProductById(Long id);

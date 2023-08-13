@@ -26,6 +26,5 @@ public class OrderItems {
     private Product product;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "order_id", referencedColumnName = "id")
-    private Orders orders;
+    private UserOrder orders;
 }

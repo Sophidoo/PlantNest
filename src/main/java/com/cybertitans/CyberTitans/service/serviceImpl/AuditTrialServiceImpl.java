@@ -5,7 +5,7 @@ import com.cybertitans.CyberTitans.dto.AuditTrialDTO;
 import com.cybertitans.CyberTitans.dto.AuditTrialResponseDTO;
 import com.cybertitans.CyberTitans.dto.OrderResponseDTO;
 import com.cybertitans.CyberTitans.model.AuditTrial;
-import com.cybertitans.CyberTitans.model.Orders;
+import com.cybertitans.CyberTitans.model.UserOrder;
 import com.cybertitans.CyberTitans.model.User;
 import com.cybertitans.CyberTitans.repository.AuditTrialRepository;
 import com.cybertitans.CyberTitans.service.AuditTrialService;

@@ -6,7 +6,7 @@ import com.cybertitans.CyberTitans.dto.ProductResponseDTO;
 import com.cybertitans.CyberTitans.enums.ProductType;
 import com.cybertitans.CyberTitans.exception.Exception;
 import com.cybertitans.CyberTitans.exception.ResourceNotFoundException;
-import com.cybertitans.CyberTitans.model.Orders;
+import com.cybertitans.CyberTitans.model.UserOrder;
 import com.cybertitans.CyberTitans.model.Product;
 import com.cybertitans.CyberTitans.model.User;
 import com.cybertitans.CyberTitans.repository.ProductRepository;

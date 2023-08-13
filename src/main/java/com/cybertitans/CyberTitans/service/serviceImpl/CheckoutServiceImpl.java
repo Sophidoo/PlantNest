@@ -53,19 +53,19 @@ public class CheckoutServiceImpl implements CheckoutService {
         if (userCart.getCartItemList().size() < 1) {
             throw new CartIsEmptyException("Your cart is empty");
         }
-        Orders orders = new Orders();
-        System.out.println(user);
+        UserOrder orders = new UserOrder();
+//        System.out.println(user);
         orders.setDateOrdered(new Date());
         orders.setShippingAddress(shippingAddressRepository.save(mapper.map(shippingAddressDTO, ShippingAddress.class)));
         orders.setOrderStatus(OrderStatus.PENDING);
         orders.setUser(user);
         orders.setOrderItems(userCart.getCartItemList().stream().map(item -> mapper.map(item, OrderItems.class)).collect(Collectors.toList()));
         orders.setTotalPrice(userCart.getCartTotal());
-        System.out.println(orders);
+//        System.out.println(orders);
 
-        Orders save = orderRepository.save(orders);
+        System.out.println(orders.getUser().toString());
+        UserOrder save = orderRepository.save(orders);
         cartService.clearCart();
-        System.out.println(save.getUser());
         return mapper.map(orders, OrderResponseDTO.class);
     }
 

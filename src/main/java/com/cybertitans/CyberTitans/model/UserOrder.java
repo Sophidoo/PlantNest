@@ -16,10 +16,10 @@ import java.util.List;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-public class Orders {
+public class UserOrder {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long orderId;
     private Date dateOrdered;
     private Date dateDelivered;
     private Double totalPrice;
@@ -36,7 +36,7 @@ public class Orders {
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<OrderItems> orderItems;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 }

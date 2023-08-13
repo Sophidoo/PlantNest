@@ -12,8 +12,8 @@ public class ShippingAddressDTO {
     private Long user_id;
     private String streetAddress;
     private String city;
-//    @Email
-//    private String email;
+    @Email
+    private String email;
     private String state;
     private String country;
     private boolean isDefaultShippingAddress;

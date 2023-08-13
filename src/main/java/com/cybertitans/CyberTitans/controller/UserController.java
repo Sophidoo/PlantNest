@@ -66,8 +66,15 @@ public class UserController {
             @RequestParam(value = "pageSize", defaultValue = AppConstant.DEFAULT_PAGE_SIZE, required = false) int pageSize,
             @RequestParam(value = "sortBy", defaultValue = AppConstant.DEFAULT_SORT_BY_ORDER, required = false) String sortBy,
             @RequestParam(value = "sortDir", defaultValue = AppConstant.DEFAULT_SORT_DIRECTION, required = false) String sortDir) {
-        AllOrderResponseDTO allOrderResponseDTO = orderService.viewUserOrderHistory(pageNo, pageSize, sortBy, sortDir);
+        AllOrderResponseDTO allOrderResponseDTO = orderService.viewOrderHistory(pageNo, pageSize, sortBy, sortDir);
         return  new ResponseEntity<>(allOrderResponseDTO, HttpStatus.OK);
+    }
+
+    @PostMapping("/create")
+    public ResponseEntity<String> createOrder(
+            @RequestBody CreateOrderRequestDTO createOrderRequestDTO) {
+        String orderResponse = orderService.createOrder(createOrderRequestDTO);
+        return ResponseEntity.ok(orderResponse);
     }
 
     @SecurityRequirement(

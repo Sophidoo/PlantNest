@@ -58,7 +58,7 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public String Login(LoginDTO loginDTO) {
         if (!userRepository.existsByUsername(loginDTO.getUsernameOrEmail()) && !userRepository.existsByEmail(loginDTO.getUsernameOrEmail())) {
-            return new Exception(HttpStatus.BAD_REQUEST, "User " + loginDTO.getUsernameOrEmail() + " does not exist, Please Register").getMessage();
+            throw  new Exception(HttpStatus.BAD_REQUEST, "User " + loginDTO.getUsernameOrEmail() + " does not exist, Please Register");
         }
 
         Authentication authentication = authenticationManager.authenticate(
@@ -71,13 +71,13 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public String Register(RegisterDTO registerDTO) {
         if (userRepository.existsByUsername(registerDTO.getUsername())) {
-            return new Exception(HttpStatus.BAD_REQUEST, "Username already exists, Login instead").getMessage();
+            throw new Exception(HttpStatus.BAD_REQUEST, "Username already exists, Login instead");
         }
         if (userRepository.existsByEmail(registerDTO.getEmail())) {
-            return new Exception(HttpStatus.BAD_REQUEST, "Email already exists, Login instead").getMessage();
+            throw  new Exception(HttpStatus.BAD_REQUEST, "Email already exists, Login instead");
         }
         if (registerDTO.getPassword().length() < 6) {
-            return new Exception(HttpStatus.BAD_REQUEST, "Password length must be more than 6 characters").getMessage();
+            throw new Exception(HttpStatus.BAD_REQUEST, "Password length must be more than 6 characters");
         }
 
         User user = new User();

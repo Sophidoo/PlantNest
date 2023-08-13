@@ -163,13 +163,14 @@ public class AdminServiceImpl implements AdminService {
 
         Pageable pageable = PageRequest.of(pageNo, pageSize, sort);
 
-        Page<Orders> orders = orderRepository.findAll(pageable);
+        Page<UserOrder> orders = orderRepository.findAll(pageable);
         AllOrderResponseDTO orderResponse = getOrderResponse(orders);
+        System.out.println(orders + "line 168");
         return orderResponse;
     }
 
-    private AllOrderResponseDTO getOrderResponse(Page<Orders> orders){
-        List<Orders> orderList = orders.getContent();
+    private AllOrderResponseDTO getOrderResponse(Page<UserOrder> orders){
+        List<UserOrder> orderList = orders.getContent();
         List<OrderResponseDTO> content = orderList.stream().map(order -> mapper.map(order, OrderResponseDTO.class)).collect(Collectors.toList());
 
         AllOrderResponseDTO orderResponseDTO = new AllOrderResponseDTO();
@@ -186,7 +187,7 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public OrderResponseDTO viewParticularOrder(long orderId) {
-        Orders orders = orderRepository.findById(orderId).orElseThrow(() -> new ResourceNotFoundException("Order", "id", orderId));
+        UserOrder orders = orderRepository.findById(orderId).orElseThrow(() -> new ResourceNotFoundException("Order", "id", orderId));
         return mapper.map(orders, OrderResponseDTO.class);
     }
 

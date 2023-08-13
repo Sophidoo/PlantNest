@@ -56,7 +56,7 @@ public class User {
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY,
             cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Orders> orders;
+    private List<UserOrder> orders;
 
     private String phoneNumber;
 

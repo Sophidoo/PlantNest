@@ -1,6 +1,7 @@
 package com.cybertitans.CyberTitans.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,7 +22,10 @@ public class ShippingAddress {
     private String country;
     private boolean isDefaultShippingAddress;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @Email
+    private String email;
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
+
     private User user;
 }

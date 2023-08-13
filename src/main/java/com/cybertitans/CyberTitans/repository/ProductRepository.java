@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface ProductRepository extends JpaRepository<Product, Long> {
@@ -17,7 +18,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     @Query("SELECT p FROM Product p WHERE p.quantity > 0 AND LOWER(p.growthHabit) LIKE %?1%")
     Page<Product> findAllByGrowthHabitContains (Pageable pageable, String growthHabit);
-
+    List<Product> findByProductIdIn(List<Long> productIds);
     Page<Product> findAllByProductType (Pageable pageable, ProductType productType);
 
     @Query("SELECT p FROM Product p WHERE p.quantity > 0 AND LOWER(p.lightLevel) LIKE %?1%")
