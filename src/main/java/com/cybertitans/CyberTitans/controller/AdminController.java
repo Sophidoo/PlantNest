@@ -115,9 +115,9 @@ public class AdminController {
     @SecurityRequirement(
             name = "Bearer Authentication"
     )
-    @GetMapping("/products-available-count/{productType}")
-    public ResponseEntity<Integer> getAvailableProductsCountByType(@PathVariable ProductType productType) {
-        int availableProductsCountByType = productService.getAvailableProductsCountByType(productType);
+    @GetMapping("/products-available-count")
+    public ResponseEntity<Integer> getAvailableProductsCountByType() {
+        int availableProductsCountByType = productService.getAvailableProductsCountByType();
         return new ResponseEntity<>(availableProductsCountByType, HttpStatus.OK);
     }
 

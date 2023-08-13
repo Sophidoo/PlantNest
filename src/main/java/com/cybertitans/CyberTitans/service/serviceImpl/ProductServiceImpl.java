@@ -96,13 +96,15 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public int getAvailableProductsCountByType(ProductType productType) {
-        return productRepository.getAvailableProductCountByType(productType);
+    public int getAvailableProductsCountByType() {
+        int size = productRepository.findAll().size();
+        return size;
     }
 
     @Override
     public int getSoldProductsCountByType(ProductType productType) {
-        return productRepository.getSoldProductCountByType(productType);
+        int totalQuantitySold = productRepository.getTotalQuantitySold(productType);
+        return totalQuantitySold;
     }
 
 

@@ -20,7 +20,9 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     Page<Product> findAllByGrowthHabitContains (Pageable pageable, String growthHabit);
     List<Product> findByProductIdIn(List<Long> productIds);
     Page<Product> findAllByProductType (Pageable pageable, ProductType productType);
-
+    List<Product> findAllByProductType (ProductType productType);
+    @Query("SELECT SUM(p.quantitySold) FROM Product p WHERE p.productType = :productType")
+    int getTotalQuantitySold(ProductType productType);
     @Query("SELECT p FROM Product p WHERE p.quantity > 0 AND LOWER(p.lightLevel) LIKE %?1%")
     Page<Product> findAllByLightLevelContains (Pageable pageable, String lightLevel);
 

@@ -65,6 +65,7 @@ public class AuthServiceImpl implements AuthService {
                 new UsernamePasswordAuthenticationToken(loginDTO.getUsernameOrEmail(), loginDTO.getPassword())
         );
         SecurityContextHolder.getContext().setAuthentication(authentication);
+        User user = getLoggedInUser();
         return jwtTokenProvider.generateToken(authentication);
     }
 
